@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\http\Requests\Auth\RegisterRequest;
 use App\Models\{User, Address};
 
 class RegisterController extends Controller
@@ -11,7 +11,7 @@ class RegisterController extends Controller
     public function create(){
         return view('auth.register');
     }
-    public function store(Request $request){
+    public function store(RegisterRequest $request){
         $requestData = $request->all();
         $requestData['user']['role'] = 'participant';
         $user = User::create($requestData['user']);
@@ -20,7 +20,5 @@ class RegisterController extends Controller
         foreach ($requestData['phones'] as $phone){
             $user->phones()->create($phone);
         }
-
-        
     }
 }
