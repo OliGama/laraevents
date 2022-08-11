@@ -16,8 +16,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             'user.name' => 'required',
-            'user.email' => ['required', 'email'],
-            'user.cpf' => ['required', new Cpf],
+            'user.email' => ['required', 'email', 'unique:users,email'],
+            'user.cpf' => ['required', new Cpf, 'unique:users,cpf'],
             'user.password' => ['required', 'min:8', 'confirmed'],
             'phones.0.number' => ['required', 'size:14'],
             'phones.1.number' => ['required', 'size:15'],

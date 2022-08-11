@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\http\Requests\Auth\RegisterRequest;
 use App\Models\{User, Address};
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -12,13 +13,27 @@ class RegisterController extends Controller
         return view('auth.register');
     }
     public function store(RegisterRequest $request){
-        $requestData = $request->all();
-        $requestData['user']['role'] = 'participant';
-        $user = User::create($requestData['user']);
-        $user->address()->create($requestData['address']);
+        $requestData = $request->validated();
 
-        foreach ($requestData['phones'] as $phone){
-            $user->phones()->create($phone);
+        $requestData['user']['role'] = 'participant';
+
+        DB::beginTransaction();
+        try{
+            $user = User::create($requestData['user']);
+
+            $user->address()->create($requestData['address']);
+
+            foreach ($requestData['phones'] as $phone){
+                $user->phones()->create($phone);
+            }
+            
+            DB::commit();
+
+            return 'Conta criada com sucesso!';
+            
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return 'Mensagem: ' . $exception->getMessage();
         }
     }
 }
