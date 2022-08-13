@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group"> 
+                        <div class="form-group">
                             <input
                                 type="email"
                                 name="user[email]"
@@ -40,8 +40,8 @@
                             <div class="invalid-feedback">{{$errors->first('user.email')}}</div>
                         </div>
                     </div>
-                    <div class="col-md-6">  
-                        <div class="form-group">     
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <input
                                 type="text"
                                 name="user[cpf]"
@@ -52,8 +52,8 @@
                             <div class="invalid-feedback">{{$errors->first('user.cpf')}}</div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6">  
-                        <div class="form-group">     
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
                             <input
                                 type="password"
                                 name="user[password]"
@@ -63,8 +63,8 @@
                             <div class="invalid-feedback">{{$errors->first('user.password')}}</div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6">  
-                        <div class="form-group">     
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
                             <input
                                 type="password"
                                 name="user[password_confirmation]"
@@ -168,8 +168,8 @@
                 </div>
                 <hr>
                 <div class="row mt-4">
-                    <div class="col-md-6">  
-                        <div class="form-group">     
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <input
                                 type="text"
                                 name="phones[0][number]"
@@ -180,14 +180,14 @@
                             <div class="invalid-feedback">{{$errors->first('phones.0.number')}}</div>
                         </div>
                     </div>
-                    <div class="col-md-6">  
-                        <div class="form-group">     
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <input
                                 type="text"
                                 name="phones[1][number]"
-                                class="form-control cellphone{{$errors->has('phones.1.number') ? 'is-invalid' : ''}}"
+                                class="form-control cellphone {{$errors->has('phones.1.number') ? 'is-invalid' : ''}}"
                                 placeholder="Celular"
-                                value="{{old('phones.1.number   ')}}"
+                                value="{{old('phones.1.number')}}"
                             >
                             <div class="invalid-feedback">{{$errors->first('phones.1.number')}}</div>
                         </div>

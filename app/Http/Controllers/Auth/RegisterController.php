@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\http\Requests\Auth\RegisterRequest;
 use App\Models\{User, Address};
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
@@ -26,14 +27,16 @@ class RegisterController extends Controller
             foreach ($requestData['phones'] as $phone){
                 $user->phones()->create($phone);
             }
-            
-            DB::commit();
 
-            return 'Conta criada com sucesso!';
-            
+                DB::commit();
+
+                return redirect()
+                    ->route('auth.login.create')
+                    ->with('success', 'Conta criada com sucesso! Efetue o login');
+
         } catch (\Exception $exception) {
-            DB::rollBack();
-            return 'Mensagem: ' . $exception->getMessage();
+                DB::rollBack();
+                return 'Mensagem: ' . $exception->getMessage();
         }
     }
 }
