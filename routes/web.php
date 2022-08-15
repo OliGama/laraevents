@@ -17,11 +17,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['as' => 'auth.', 'middleware' => 'guest'], function () {
+    Route::get('register', [RegisterController::class, 'create'])->name('register.create');
+    Route::post('register', [RegisterController::class, 'store'])->name('register.store');
+    Route::get('login', [LoginController::class, 'create'])->name('login.create');
+    Route::post('login', [LoginController::class, 'store'])->name('login.store');
+});
 
-Route::get('register', [RegisterController::class, 'create'])->name('auth.register.create');
-Route::post('register', [RegisterController::class, 'store'])->name('auth.register.store');
-Route::get('login', [LoginController::class, 'create'])->name('auth.login.create');
-Route::post('login', [LoginController::class, 'store'])->name('auth.login.store');
 Route::get('participant/dashboard', [DashboardController::class, 'index'])
     ->name('participant.dashboard.index')
     ->middleware('auth');
