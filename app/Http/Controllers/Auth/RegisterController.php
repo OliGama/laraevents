@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\http\Requests\Auth\RegisterRequest;
 use App\Models\{User, Address};
 use GrahamCampbell\ResultType\Success;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
