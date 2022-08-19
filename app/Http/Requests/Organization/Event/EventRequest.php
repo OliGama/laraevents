@@ -33,7 +33,7 @@ class EventRequest extends FormRequest
             'end_date' => [
                 'required',
                 'date_format:d/m/Y H:i',
-                'after:date' . $this->start_date ?? null
+                'after:' .$this->start_date ?? null
             ], 
             'target_audience' => ['required', 'max:150'], 
             'participants_limit' => ['numeric', 'integer', 'min:1']
@@ -55,7 +55,8 @@ class EventRequest extends FormRequest
     public function messages()
     {
         return [
-            'date_format' => 'O campo :attribute não corresponde ao formato 00/00/0000'
+            'date_format' => 'O campo :attribute não corresponde ao formato 00/00/0000',
+            'end_date.after' => 'A data final deve ser posterior a data inicial.'
         ];
     }
 }

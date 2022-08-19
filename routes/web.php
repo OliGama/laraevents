@@ -6,9 +6,9 @@ use App\Http\Controllers\Auth\{
 use App\Http\Controllers\Participant\Dashboard\DashboardController as ParticipantDashboardController;
 use App\http\Controllers\Organization\{
     Dashboard\DashboardController as OrganizationDashboardController,
-    Event\EventController
+    Event\EventController,
+    Event\EventSubscriptionController
 };
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 
@@ -39,9 +39,16 @@ Route::group(['middleware' => 'auth'], function () {
         ->middleware('role:participant');
 
     Route::group(['prefix' => 'organization', 'as' => 'organization.', 'middleware' => 'role:organization'], function(){
+        //Dashboard
         Route::get('dashboard', [OrganizationDashboardController::class, 'index'])->name('dashboard.index');
-        Route::get('events', [EventController::class, 'index'])->name('events.index');
-        Route::get('events/create', [EventController::class, 'create'])->name('events.create');
-    });
+        //Eventos
+        Route::post('events/{event}/subscriptions', [EventSubscriptionController::class, 'store'])
+            ->name('events.subscription.store');
+
+        Route::delete('events/{event}/subscriptions/{user}', [EventSubscriptionController::class, 'destroy'])
+            ->name('events.subscriptions.destroy');
+            
+        Route::resource('events', EventController::class);
+    });  
 });
 
