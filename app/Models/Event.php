@@ -19,7 +19,7 @@ class Event extends Model
         $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y H:i', $value)
             ->format('Y-m-d H:i:s');
     }
-    
+
     public function setEndDateAttribute($value)
     {
         $this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y H:i', $value)
@@ -28,7 +28,7 @@ class Event extends Model
 
     //relationships]
     public function users(){
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('present');
     }
 
     //accessors
@@ -36,7 +36,7 @@ class Event extends Model
     {
         return Carbon::parse($this->start_date)->format('d/m/Y H:i');
     }
-    
+
     public function getEndDateFormattedAttribute()
     {
         return Carbon::parse($this->end_date)->format('d/m/Y H:i');

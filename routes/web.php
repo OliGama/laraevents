@@ -9,6 +9,7 @@ use App\http\Controllers\Organization\{
     Event\EventController,
     Event\EventSubscriptionController
 };
+use App\Http\Controllers\Organization\Event\EventPresenceController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -47,8 +48,11 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::delete('events/{event}/subscriptions/{user}', [EventSubscriptionController::class, 'destroy'])
             ->name('events.subscriptions.destroy');
-            
+
+        Route::post('events/{event}/presences/{user}', EventPresenceController::class)
+            ->name('events.presences');
+
         Route::resource('events', EventController::class);
-    });  
+    });
 });
 
